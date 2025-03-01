@@ -6,13 +6,21 @@ from confluent_kafka.serialization import StringDeserializer
 import csv
 import os
 
+
+SERVER = os.getenv("SERVER")
+USERNAME = os.getenv("USERNAME")
+PASS = os.getenv("PASS")
+ENDPOINT = os.getenv("ENDPOINT")
+SCHEMA_REGISTORY_API = os.getenv("SCHEMA_REGISTORY_API")
+SCHEMA_REGISTORY_SECRET = os.getenv("SCHEMA_REGISTORY_SECRET")
+
 # Define Kafka configuration
 kafka_config = {
-    'bootstrap.servers': 'pkc-56d1g.eastus.azure.confluent.cloud:9092',
+    'bootstrap.servers': SERVER,
     'sasl.mechanisms': 'PLAIN',
     'security.protocol': 'SASL_SSL',
-    'sasl.username': 'UPI43IFAOPTJ6PAN',
-    'sasl.password': 'OyRHkfjrmKHID59bCnwsGYf+row92b3IVIxyKk10OmhVJa5ymIlPz8oUwNHrE1xy',
+    'sasl.username': USERNAME,
+    'sasl.password': PASS,
     'group.id': 'group1',
     'auto.offset.reset': 'earliest'
 }
@@ -20,8 +28,8 @@ kafka_config = {
 
 # Create a Schema Registry client
 schema_registry_client = SchemaRegistryClient({
-  'url': 'https://psrc-42jp1.westus2.azure.confluent.cloud',
-  'basic.auth.user.info': '{}:{}'.format('6COL5NAXSJEPTRFE', 'gu5X7RwfLNw3SvuUBBwSIH0T2YesaEa3WFnCJ3GnEczrmILAHkpMrXyi+8/VCnrx')
+  'url': ENDPOINT,
+  'basic.auth.user.info': '{}:{}'.format(SCHEMA_REGISTORY_API, SCHEMA_REGISTORY_SECRET)
 })
 
 # Fetch the latest Avro schema for the value
@@ -45,7 +53,7 @@ consumer = DeserializingConsumer({
     'auto.offset.reset': kafka_config['auto.offset.reset']
 })
 
-# Subscribe to the 'retail_data' topic
+# Subscribe to the 'topic_0' topic
 consumer.subscribe(['topic_0'])
 
 #Continually read messages from Kafka

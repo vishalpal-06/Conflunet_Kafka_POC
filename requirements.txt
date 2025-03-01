@@ -1,0 +1,14 @@
+confluent-kafka
+pandas
+opencv-python
+deepface
+opencv-python
+tf-keras
+httpx
+attrs
+cachetools
+authlib
+fastavro
+streamlit
+matplotlib
+seaborn
