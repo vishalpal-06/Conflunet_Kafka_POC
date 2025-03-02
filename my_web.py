@@ -38,5 +38,3 @@ ax.set_title('Gender Distribution')
 ax.set_ylabel('Count')
 ax.set_xlabel('Gender')
 st.pyplot(fig)
-
-
